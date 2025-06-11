@@ -1,41 +1,143 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WITAJ</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard WITAJ</title>
   <style>
+    /* Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     html, body {
       height: 100%;
       width: 100%;
-      background-color: #000; /* czarne tło – dobre na TV */
+      background: #121212; /* ciemne tło */
+      color: #eee;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    .container {
-      height: 100%;
-      width: 100%;
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    /* Nagłówek */
+    header {
+      flex: 0 0 80px;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid #444;
+      margin-bottom: 20px;
+      user-select: none;
     }
 
-    .welcome {
-      color: #ffffff;
-      font-size: 8vw; /* responsywna wielkość tekstu */
-      text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.3);
+    /* Główna część */
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: 3fr 1fr;
+      gap: 20px;
+    }
+
+    /* Duży środkowy blok */
+    .big-block {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+      background: #1f1f1f;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      font-weight: 800;
+      user-select: none;
+    }
+
+    /* Lewy dolny blok */
+    .left-block {
+      grid-column: 1 / 2;
+      grid-row: 2 / 3;
+      background: #222;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      font-size: 1.2rem;
+      overflow-y: auto;
+      user-select: none;
+    }
+
+    /* Prawy dolny blok */
+    .right-block {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+      background: #222;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      font-size: 1.2rem;
+      overflow-y: auto;
+      user-select: none;
+    }
+
+    /* Na dole po prawej, na górze po prawej zostaje puste */
+    /* Prawa kolumna na górze jest pusta, ale można rozbudować */
+
+    /* Responsywność */
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+        grid-template-rows: 3fr 1fr 1fr;
+      }
+      .big-block {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+        font-size: 4rem;
+      }
+      .left-block, .right-block {
+        grid-column: 1 / 2;
+        grid-row: auto;
+        font-size: 1rem;
+        max-height: 150px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="welcome">WITAJ</div>
-  </div>
+  <header>WITAJ</header>
+  <main>
+    <section class="big-block">
+      <!-- Tu będzie duża liczba lub najważniejsza informacja -->
+      12345
+    </section>
+    <section class="left-block">
+      <!-- Lista lub mniejsze dane -->
+      <ul>
+        <li>Pozycja 1</li>
+        <li>Pozycja 2</li>
+        <li>Pozycja 3</li>
+        <li>Pozycja 4</li>
+        <li>Pozycja 5</li>
+      </ul>
+    </section>
+    <section class="right-block">
+      <!-- Drugi blok mniejszych danych -->
+      <ul>
+        <li>Alert 1</li>
+        <li>Alert 2</li>
+        <li>Alert 3</li>
+      </ul>
+    </section>
+  </main>
 </body>
 </html>
