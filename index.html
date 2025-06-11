@@ -1,100 +1,279 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Układ 5x5 i 3 prostokąty</title>
-  <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-      width: 100%;
-      background: #222;
-      font-family: Arial, sans-serif;
-      color: white;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harmonogram</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
 
-    body {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      overflow: hidden;
-    }
+        .container {
+            border: 2px solid #ccc;
+            padding: 10px;
+            background-color: #fff;
+        }
 
-    /* Baner na górze */
-    header {
-      flex: 0 0 60px; /* wąski baner */
-      background: #444;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      font-weight: bold;
-      user-select: none;
-    }
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            background-color: #e0f0ff;
+            padding: 5px 0;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ccc;
+        }
 
-    /* Główna zawartość pod banerem */
-    main {
-      flex: 1 1 auto;
-      display: flex;
-      padding: 10px;
-      gap: 10px;
-      background: #111;
-    }
+        .header-row div {
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
 
-    /* Kwadrat po lewej 5x5 jednostek */
-    .square {
-      flex: 0 0 calc(5 / 9 * 100%); /* szerokość: 5 jednostek z 9 */
-      aspect-ratio: 1 / 1; /* kwadrat */
-      background: #2a9d8f;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      font-weight: 700;
-      user-select: none;
-    }
+        .header-row .day-header {
+            flex: 0.2; /* Adjust width for 'środa' */
+            text-align: left;
+            padding-left: 10px;
+        }
 
-    /* Kontener na trzy prostokąty po prawej */
-    .right-container {
-      flex: 0 0 calc(4 / 9 * 100%); /* szerokość: 4 jednostki */
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+        .main-content {
+            display: flex;
+            align-items: flex-start;
+        }
 
-    /* Każdy prostokąt szerokości 4/3 jednostki, wysokość tak, aby 3 razem miały wysokość 5 jednostek */
-    /* Skoro cały main ma wysokość flex:1, to da się proporcjonalnie */
-    .right-rect {
-      flex: 1 1 0;
-      background: #e76f51;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      font-weight: 600;
-      user-select: none;
-    }
-  </style>
+        .mp4-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 15px;
+            width: 100px; /* Adjust width as needed */
+        }
+
+        .mp4-label {
+            font-weight: bold;
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .mp4-box {
+            border: 1px solid #000;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            font-weight: bold;
+            background-color: #aaffaa; /* Light green for the box */
+            margin-bottom: 5px;
+        }
+
+        .mp4-small-text {
+            font-size: 0.8em;
+            text-align: center;
+        }
+
+
+        .shifts-container {
+            flex-grow: 1;
+            display: flex;
+            gap: 10px; /* Space between shifts */
+        }
+
+        .shift {
+            border: 1px solid #ccc;
+            padding: 5px;
+            flex: 1;
+        }
+
+        .shift-header {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr) auto; /* 9 columns for times + 1 for TOTAL */
+            gap: 2px;
+            border: 1px solid #000;
+            padding: 2px;
+        }
+
+        .time-grid.shift-i {
+            grid-template-columns: repeat(8, 1fr) auto; /* 8 columns for times + 1 for TOTAL */
+        }
+
+        .time-grid.shift-ii {
+            grid-template-columns: repeat(8, 1fr) auto; /* 8 columns for times + 1 for TOTAL */
+        }
+
+        .time-grid.shift-iii {
+            grid-template-columns: repeat(8, 1fr) auto; /* 8 columns for times + 1 for TOTAL */
+            grid-template-rows: repeat(auto-fit, minmax(30px, 1fr)); /* Adjust row height */
+        }
+
+        .time-slot-label, .time-slot-box, .total-box {
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 30px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        .time-slot-label {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+
+        .time-slot-box {
+            background-color: #ddffdd; /* Light green for active slots */
+        }
+
+        .time-slot-box.inactive {
+            background-color: #f0f0f0; /* Grey for inactive slots */
+        }
+
+        .total-label {
+            font-weight: bold;
+            text-align: center;
+            grid-column: span 1;
+            background-color: #f5f5f5;
+        }
+
+        .total-box {
+            background-color: #aaffaa; /* Light green for total box */
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .total-box.inactive {
+            background-color: #f0f0f0; /* Grey for inactive total box */
+        }
+
+        .small-text {
+            font-size: 0.8em;
+            text-align: center;
+        }
+
+        /* Specific styles for Shift III to make boxes grey and without numbers */
+        .shift-iii .time-slot-box,
+        .shift-iii .total-box {
+            background-color: #f0f0f0; /* Grey background */
+            border: 1px solid #ccc;
+        }
+        .shift-iii .time-slot-box div {
+            visibility: hidden; /* Hide content but maintain structure */
+        }
+    </style>
 </head>
 <body>
-  <header>
-    Baner na górze – szeroki i wąski
-  </header>
-  <main>
-    <div class="square">Kwadrat 5x5</div>
-    <div class="right-container">
-      <div class="right-rect">Prostokąt 1</div>
-      <div class="right-rect">Prostokąt 2</div>
-      <div class="right-rect">Prostokąt 3</div>
+
+    <div class="container">
+        <div class="header-row">
+            <div class="day-header">środa</div>
+            <div>zmiana I</div>
+            <div>zmiana II</div>
+            <div>zmiana III</div>
+        </div>
+
+        <div class="main-content">
+            <div class="mp4-section">
+                <div class="mp4-label">MP4</div>
+                <div class="mp4-box">
+                    </div>
+                <div class="mp4-small-text">
+                    </div>
+            </div>
+
+            <div class="shifts-container">
+                <div class="shift">
+                    <div class="shift-header">TOTAL</div>
+                    <div class="time-grid shift-i">
+                        <div class="time-slot-label">6-7</div>
+                        <div class="time-slot-label">7-8</div>
+                        <div class="time-slot-label">8-9</div>
+                        <div class="time-slot-label">9-10</div>
+                        <div class="time-slot-label">10-11</div>
+                        <div class="time-slot-label">11-12</div>
+                        <div class="time-slot-label">12-13</div>
+                        <div class="time-slot-label">13-14</div>
+                        <div class="time-slot-label">14-15</div>
+                        <div class="total-label">TOTAL</div>
+
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="total-box"></div>
+                        <div class="time-slot-box"></div>
+                    </div>
+                </div>
+
+                <div class="shift">
+                    <div class="shift-header">TOTAL</div>
+                    <div class="time-grid shift-ii">
+                        <div class="time-slot-label">14-15</div>
+                        <div class="time-slot-label">15-16</div>
+                        <div class="time-slot-label">16-17</div>
+                        <div class="time-slot-label">17-18</div>
+                        <div class="time-slot-label">18-19</div>
+                        <div class="time-slot-label">19-20</div>
+                        <div class="time-slot-label">20-21</div>
+                        <div class="time-slot-label">21-22</div>
+                        <div class="total-label">TOTAL</div>
+
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="total-box"></div>
+                        <div class="time-slot-box"></div>
+                    </div>
+                </div>
+
+                <div class="shift">
+                    <div class="shift-header">TOTAL</div>
+                    <div class="time-grid shift-iii">
+                        <div class="time-slot-label">22-23</div>
+                        <div class="time-slot-label">23-00</div>
+                        <div class="time-slot-label">00-01</div>
+                        <div class="time-slot-label">01-02</div>
+                        <div class="time-slot-label">02-03</div>
+                        <div class="time-slot-label">03-04</div>
+                        <div class="time-slot-label">04-05</div>
+                        <div class="time-slot-label">05-06</div>
+                        <div class="total-label">TOTAL</div>
+
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="time-slot-box"></div>
+                        <div class="total-box"></div>
+                        <div class="time-slot-box"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </main>
+
 </body>
 </html>
