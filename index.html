@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard WITAJ</title>
+  <title>Układ 5x5 i 3 prostokąty</title>
   <style>
     /* Reset */
     * {
@@ -14,130 +14,87 @@
     html, body {
       height: 100%;
       width: 100%;
-      background: #121212; /* ciemne tło */
-      color: #eee;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #222;
+      font-family: Arial, sans-serif;
+      color: white;
     }
 
     body {
       display: flex;
       flex-direction: column;
       height: 100vh;
-      padding: 20px;
+      overflow: hidden;
     }
 
-    /* Nagłówek */
+    /* Baner na górze */
     header {
-      flex: 0 0 80px;
+      flex: 0 0 60px; /* wąski baner */
+      background: #444;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 3rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      border-bottom: 2px solid #444;
-      margin-bottom: 20px;
+      font-size: 1.8rem;
+      font-weight: bold;
       user-select: none;
     }
 
-    /* Główna część */
+    /* Główna zawartość pod banerem */
     main {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      grid-template-rows: 3fr 1fr;
-      gap: 20px;
+      flex: 1 1 auto;
+      display: flex;
+      padding: 10px;
+      gap: 10px;
+      background: #111;
     }
 
-    /* Duży środkowy blok */
-    .big-block {
-      grid-column: 1 / 2;
-      grid-row: 1 / 2;
-      background: #1f1f1f;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.7);
+    /* Kwadrat po lewej 5x5 jednostek */
+    .square {
+      flex: 0 0 calc(5 / 9 * 100%); /* szerokość: 5 jednostek z 9 */
+      aspect-ratio: 1 / 1; /* kwadrat */
+      background: #2a9d8f;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 6rem;
-      font-weight: 800;
+      font-size: 2.5rem;
+      font-weight: 700;
       user-select: none;
     }
 
-    /* Lewy dolny blok */
-    .left-block {
-      grid-column: 1 / 2;
-      grid-row: 2 / 3;
-      background: #222;
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      font-size: 1.2rem;
-      overflow-y: auto;
-      user-select: none;
+    /* Kontener na trzy prostokąty po prawej */
+    .right-container {
+      flex: 0 0 calc(4 / 9 * 100%); /* szerokość: 4 jednostki */
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    /* Prawy dolny blok */
-    .right-block {
-      grid-column: 2 / 3;
-      grid-row: 2 / 3;
-      background: #222;
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      font-size: 1.2rem;
-      overflow-y: auto;
+    /* Każdy prostokąt szerokości 4/3 jednostki, wysokość tak, aby 3 razem miały wysokość 5 jednostek */
+    /* Skoro cały main ma wysokość flex:1, to da się proporcjonalnie */
+    .right-rect {
+      flex: 1 1 0;
+      background: #e76f51;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 600;
       user-select: none;
-    }
-
-    /* Na dole po prawej, na górze po prawej zostaje puste */
-    /* Prawa kolumna na górze jest pusta, ale można rozbudować */
-
-    /* Responsywność */
-    @media (max-width: 768px) {
-      main {
-        grid-template-columns: 1fr;
-        grid-template-rows: 3fr 1fr 1fr;
-      }
-      .big-block {
-        grid-column: 1 / 2;
-        grid-row: 1 / 2;
-        font-size: 4rem;
-      }
-      .left-block, .right-block {
-        grid-column: 1 / 2;
-        grid-row: auto;
-        font-size: 1rem;
-        max-height: 150px;
-      }
     }
   </style>
 </head>
 <body>
-  <header>WITAJ</header>
+  <header>
+    Baner na górze – szeroki i wąski
+  </header>
   <main>
-    <section class="big-block">
-      <!-- Tu będzie duża liczba lub najważniejsza informacja -->
-      12345
-    </section>
-    <section class="left-block">
-      <!-- Lista lub mniejsze dane -->
-      <ul>
-        <li>Pozycja 1</li>
-        <li>Pozycja 2</li>
-        <li>Pozycja 3</li>
-        <li>Pozycja 4</li>
-        <li>Pozycja 5</li>
-      </ul>
-    </section>
-    <section class="right-block">
-      <!-- Drugi blok mniejszych danych -->
-      <ul>
-        <li>Alert 1</li>
-        <li>Alert 2</li>
-        <li>Alert 3</li>
-      </ul>
-    </section>
+    <div class="square">Kwadrat 5x5</div>
+    <div class="right-container">
+      <div class="right-rect">Prostokąt 1</div>
+      <div class="right-rect">Prostokąt 2</div>
+      <div class="right-rect">Prostokąt 3</div>
+    </div>
   </main>
 </body>
 </html>
